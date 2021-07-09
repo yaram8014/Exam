@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activity info</title>
+</head>
+<body>
+    @model Activitym
+    <h1>Dojo Activity Center</h1>
+     <div class="text-right">
+            @* <a href="/Dashboard">Dashboard</a> | <a href="/logout">LogOut</a> *@
+            <p><a asp-action="Dashboard" asp-controller="Activitym">Home</a> |
+            <a asp-action="Logout" asp-controller="Home">LogOut</a></p> 
+        </div>
+        <div class="text-right">
+             @if( Model.Plane.UserId == ViewBag.User.UserId )
+                            {
+                            }
+                            @* else if user "Join the Activity" show the "Un-Join" button *@
+                            else if( Model.par.Any(j => j.UserId == ViewBag.User.UserId) )
+                            {
+                                <a asp-action="UnJoin" asp-controller="Activitym" ><button class="btn btn-sm btn-warning">Leave</button></a>
+                            }
+                            @* else show Join button *@
+                            else
+                            {
+                                <a asp-action="Join" asp-controller="Activitym" ><button class="btn btn-sm btn-primary">join</button></a>
+                            }
+        </div>
+    <div class="text-center">
+
+       
+
+        <div>
+            <h1>@Model.Title </h1>
+            <h3>Event Coordinator : @Model.Plane.FirstName</h3>
+            <h3>Description</h3>
+            <p>@Model.Dis</p>
+            <div class="text-left">
+            <h3 >Participation:</h3>
+            @foreach (var partic in Model.par)
+            {
+                <ul>
+                    <li>@partic.parti.FirstName</li>
+                </ul>
+                
+            }
+            </div>
+        </div>
+
+    </div>
+    
+</body>
+</html>
